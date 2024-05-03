@@ -85,7 +85,7 @@ else
 	fiji_zip_path="$temp_dl_dir/fiji.zip"
 	curl "$fiji_url" -# -o "$fiji_zip_path"
 	echo "Unzipping Fiji in $path_install"
-	unzip "$fiji_zip_path" -d "$path_install/"
+	unzip "$fiji_zip_path" -d "$path_install/"# TODO bug here on windows.
 	if [[ "$OSTYPE" == "darwin"* ]]; then
 		echo "Your OS: Mac OSX, make the folder not read only"
 		chflags -R nouchg "$path_install/Fiji.app"
