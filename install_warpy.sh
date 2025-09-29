@@ -73,16 +73,16 @@ echo ------ Setting up ImageJ/Fiji ------
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 	echo "Linux beta supported - please contribute to this installer to support it!"
 	fiji_executable_file="ImageJ-linux64"
-	fiji_url="https://downloads.imagej.net/fiji/latest/fiji-linux64.zip"
+	fiji_url="https://downloads.imagej.net/fiji/latest/fiji-latest-linux64-jdk.zip"
 elif [[ "$OSTYPE" == "darwin"* ]]; then
 	fiji_executable_file="Contents/MacOS/ImageJ-macosx"
-	fiji_url="https://downloads.imagej.net/fiji/latest/fiji-macosx.zip"
+	fiji_url="https://downloads.imagej.net/fiji/latest/fiji-latest-macos64-jdk.zip"
 elif [[ "$OSTYPE" == "msys" ]]; then
-	fiji_executable_file="ImageJ-win64.exe"
-	fiji_url="https://downloads.imagej.net/fiji/latest/fiji-win64.zip"
+	fiji_executable_file="fiji-windows-x64.exe"
+	fiji_url="https://downloads.imagej.net/fiji/latest/fiji-latest-win64-jdk.zip"
 fi
 
-fiji_path="$path_install/Fiji.app/$fiji_executable_file"
+fiji_path="$path_install/Fiji/$fiji_executable_file"
 
 echo "Looking for Fiji executable: $fiji_path"
 if [[ -f "$fiji_path" ]]; then
@@ -181,7 +181,7 @@ else
 	curl "$elastix_url" -L -# -o "$elastix_zip_path"
 	echo "Unzipping Elastix in $path_install" #Any archive of Elastix are not in one directory
 	mkdir -p "$path_install/$elastix_os_subpath/"
-	unzip "$elastix_zip_path" -d "$path_install"
+	unzip "$elastix_zip_path" -d "$path_install/$elastix_os_subpath/"
 fi
 
 if [[ -f "$elastix_path" ]]; then
@@ -265,7 +265,7 @@ elif [[ "$OSTYPE" == "msys" ]]; then
 		qupath_zip_path="$temp_dl_dir/qupath.zip"
 		curl "$qupath_url" -L -# -o "$qupath_zip_path"
 		echo "Unzipping QuPath"
-		unzip "$qupath_zip_path" -d "$path_install"
+		unzip "$qupath_zip_path" -d "$path_install/QuPath-${qupath_version}"
 		if [[ -f "$qupath_path" ]]; then
 			echo "QuPath successfully installed"
 		else
