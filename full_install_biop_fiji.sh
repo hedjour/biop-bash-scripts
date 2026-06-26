@@ -1,5 +1,5 @@
 #!/bin/bash
-if [[ "$OSTYPE" == "linux-gnu"* ]] || [[ "$OSTYPE" == "msys" ]]; then
+if [[ "$OSTYPE" == "linux-gnu"* ]] ||[[ "$OSTYPE" == "msys" ]]|| [[ "$OSTYPE" == "cygwin" ]]; then
     scriptpath=$(realpath $(dirname $0))
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     scriptpath=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")

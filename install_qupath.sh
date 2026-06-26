@@ -1,5 +1,5 @@
 #!/bin/bash
-if [[ "$OSTYPE" == "linux-gnu"* ]] || [[ "$OSTYPE" == "msys" ]]; then
+if [[ "$OSTYPE" == "linux-gnu"* ]] ||[[ "$OSTYPE" == "msys" ]]|| [[ "$OSTYPE" == "cygwin" ]]; then
     scriptpath=$(realpath $(dirname $0))
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     scriptpath=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
@@ -108,7 +108,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 			exit 1 # We cannot proceed
 		fi
 	fi
-elif [[ "$OSTYPE" == "msys" ]]; then
+elif[[ "$OSTYPE" == "msys" ]]|| [[ "$OSTYPE" == "cygwin" ]]; then
 	qupath_executable_file="QuPath-${qupath_version}.exe"
 	qupath_url="https://github.com/qupath/qupath/releases/download/v${qupath_version}/QuPath-v${qupath_version}-Windows.zip"
 	qupath_path="$path_install/QuPath-${qupath_version}/$qupath_executable_file"

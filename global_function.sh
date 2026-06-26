@@ -25,7 +25,7 @@ function system_check(){
 		echo "Your OS: Linux"
 	elif [[ "$OSTYPE" == "darwin"* ]]; then
 		echo "Your OS: Mac OSX"
-	elif [[ "$OSTYPE" == "msys" ]]; then
+	elif[[ "$OSTYPE" == "msys" ]]|| [[ "$OSTYPE" == "cygwin" ]]; then
 		echo "Your OS: Windows"
 	else
 		echo "Unknown OS, the script will exit: $OSTYPE"

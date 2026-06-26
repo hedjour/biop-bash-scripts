@@ -1,5 +1,5 @@
 #!/bin/bash
-if [[ "$OSTYPE" == "linux-gnu"* ]] || [[ "$OSTYPE" == "msys" ]]; then
+if [[ "$OSTYPE" == "linux-gnu"* ]] ||[[ "$OSTYPE" == "msys" ]]|| [[ "$OSTYPE" == "cygwin" ]]; then
     scriptpath=$(realpath $(dirname $0))
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     scriptpath=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
@@ -108,7 +108,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 	elastix_executable_file="bin/elastix"
 	transformix_executable_file="bin/transformix"
 	elastix_url="https://github.com/SuperElastix/elastix/releases/download/${elastix_version}/elastix-${elastix_version}-mac.zip"
-elif [[ "$OSTYPE" == "msys" ]]; then
+elif[[ "$OSTYPE" == "msys" ]]|| [[ "$OSTYPE" == "cygwin" ]]; then
 	elastix_os_subpath="elastix-$elastix_version-win64"
 	elastix_executable_file="elastix.exe"
 	transformix_executable_file="transformix.exe"

@@ -1,5 +1,5 @@
 #!/bin/bash
-if [[ "$OSTYPE" == "linux-gnu"* ]] || [[ "$OSTYPE" == "msys" ]]; then
+if [[ "$OSTYPE" == "linux-gnu"* ]] ||[[ "$OSTYPE" == "msys" ]]|| [[ "$OSTYPE" == "cygwin" ]]; then
     scriptpath=$(realpath $(dirname $0))
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     scriptpath=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
@@ -107,7 +107,7 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 elif [[ "$OSTYPE" == "darwin"* ]]; then
 	qupath_executable_file="Contents/MacOS/QuPath"
 	qupath_path="/Applications/QuPath.app/$qupath_executable_file"
-elif [[ "$OSTYPE" == "msys" ]]; then
+elif[[ "$OSTYPE" == "msys" ]]|| [[ "$OSTYPE" == "cygwin" ]]; then
 	qupath_executable_file="QuPath-$qupath_version.exe"
 	qupath_path="$path_install/QuPath-$qupath_version/$qupath_executable_file"
 fi

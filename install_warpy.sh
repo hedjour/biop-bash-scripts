@@ -1,5 +1,5 @@
 #!/bin/bash
-if [[ "$OSTYPE" == "linux-gnu"* ]] || [[ "$OSTYPE" == "msys" ]]; then
+if [[ "$OSTYPE" == "linux-gnu"* ]] ||[[ "$OSTYPE" == "msys" ]]|| [[ "$OSTYPE" == "cygwin" ]]; then
     scriptpath=$(realpath $(dirname $0))
 elif [[ "$OSTYPE" == "darwin"* ]]; then
     scriptpath=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
@@ -77,7 +77,7 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 elif [[ "$OSTYPE" == "darwin"* ]]; then
 	fiji_executable_file="Contents/MacOS/ImageJ-macosx"
 	fiji_url="https://downloads.imagej.net/fiji/latest/fiji-latest-macos64-jdk.zip"
-elif [[ "$OSTYPE" == "msys" ]]; then
+elif[[ "$OSTYPE" == "msys" ]]|| [[ "$OSTYPE" == "cygwin" ]]; then
 	fiji_executable_file="fiji-windows-x64.exe"
 	fiji_url="https://downloads.imagej.net/fiji/latest/fiji-latest-win64-jdk.zip"
 fi
@@ -133,7 +133,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 	elastix_executable_file="bin/elastix"
 	transformix_executable_file="bin/transformix"
 	elastix_url="https://github.com/SuperElastix/elastix/releases/download/${elastix_version}/elastix-${elastix_version}-mac.zip"
-elif [[ "$OSTYPE" == "msys" ]]; then
+elif[[ "$OSTYPE" == "msys" ]]|| [[ "$OSTYPE" == "cygwin" ]]; then
 	elastix_os_subpath="elastix-$elastix_version-win64"
 	elastix_executable_file="elastix.exe"
 	transformix_executable_file="transformix.exe"
@@ -254,7 +254,7 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 			exit 1 # We cannot proceed
 		fi
 	fi
-elif [[ "$OSTYPE" == "msys" ]]; then
+elif[[ "$OSTYPE" == "msys" ]]|| [[ "$OSTYPE" == "cygwin" ]]; then
 	qupath_executable_file="QuPath-${qupath_version}.exe"
 	qupath_url="https://github.com/qupath/qupath/releases/download/v${qupath_version}/QuPath-v${qupath_version}-Windows.zip"
 	qupath_path="$path_install/QuPath-${qupath_version}/$qupath_executable_file"
