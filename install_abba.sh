@@ -96,17 +96,17 @@ fi
 echo ------ Setting up Elastix ------
 case "$OSTYPE" in
     linux-gnu*)
-        elastix_zip_name="elastix-${elastix_version}-linux.zip"
+        elastix_zip_name="elastix-${elastix_version}-ubuntu.zip"
         elastix_executable_file="bin/elastix"
         transformix_executable_file="bin/transformix"
         ;;
     darwin*)
-        elastix_zip_name="elastix-${elastix_version}-mac.zip"
+        elastix_zip_name="elastix-${elastix_version}-macos.zip"
         elastix_executable_file="bin/elastix"
         transformix_executable_file="bin/transformix"
         ;;
     msys|cygwin)
-        elastix_zip_name="elastix-${elastix_version}-win64.zip"
+        elastix_zip_name="elastix-${elastix_version}-windows.zip"
         elastix_executable_file="elastix.exe"
         transformix_executable_file="transformix.exe"
 			echo "-- Windows specific: checking whether Visual Studio redistributable is installed"
