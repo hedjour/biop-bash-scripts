@@ -83,7 +83,7 @@ fi
 echo "------ Is ImageJ/Fiji installed ? ------"
 echo ------ Setting up ImageJ/Fiji ------
 . "$scriptpath/install_fiji.sh" "$path_install"
-fiji_path="$path_install/Fiji.app/$fiji_executable_file"
+fiji_path="$path_install/Fiji/$fiji_executable_file"
 
 if [[ -f "$fiji_path" ]]; then
     echo "Fiji correctly detected."

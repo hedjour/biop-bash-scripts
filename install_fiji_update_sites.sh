@@ -68,7 +68,7 @@ elif[[ "$OSTYPE" == "msys" ]]|| [[ "$OSTYPE" == "cygwin" ]]; then
 	fiji_url="https://downloads.imagej.net/fiji/latest/fiji-win64.zip"
 fi
 
-fiji_path="$path_install/Fiji.app/$fiji_executable_file"
+fiji_path="$path_install/Fiji/$fiji_executable_file"
 
 echo "Looking for Fiji executable: $fiji_path"
 if [[ -f "$fiji_path" ]]; then

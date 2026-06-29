@@ -62,7 +62,7 @@ echo "- ABBA QuPath Extension: $abba_extension_version"
 # ------ SETTING UP IMAGEJ/FIJI
 echo ------ Setting up ImageJ/Fiji ------
 . "$scriptpath/install_fiji.sh" "$path_install"
-fiji_path="$path_install/Fiji.app/$fiji_executable_file"
+fiji_path="$path_install/Fiji/$fiji_executable_file"
 
 echo "Enabling PTBIOP update site"
 "$fiji_path" --update add-update-site "PTBIOP" "https://biop.epfl.ch/Fiji-Update/"
@@ -81,15 +81,15 @@ mkdir -p "$temp_dl_dir"
 
 # ------ SETTING UP abba_atlases
 mkdir -p "$path_install/abba_atlases"
-mkdir -p "$path_install/Fiji.app/plugins/BIOP"
+mkdir -p "$path_install/Fiji/plugins/BIOP"
 
-echo -n "$path_install/abba_atlases">"$path_install/Fiji.app/plugins/BIOP/ABBA_Atlas_folder.txt"
+echo -n "$path_install/abba_atlases">"$path_install/Fiji/plugins/BIOP/ABBA_Atlas_folder.txt"
 
 if [[ "$OSTYPE" == "darwin"* ]]; then
 	echo "Your OS: Mac OSX, make the folder not read only"
-	chflags -R nouchg "$path_install/Fiji.app"
-	xattr -rd com.apple.quarantine "$path_install/Fiji.app"
-	chmod -R a+w "$path_install/Fiji.app"
+	chflags -R nouchg "$path_install/Fiji"
+	xattr -rd com.apple.quarantine "$path_install/Fiji"
+	chmod -R a+w "$path_install/Fiji"
 fi
 
 # ------ SETTING UP ELASTIX ------
