@@ -49,6 +49,16 @@ else
 	path_validation $1
 fi
 
-source "$scriptpath/full_install_biop_fiji.sh" "$path_install"
-source "$scriptpath/full_install_biop_qupath.sh" "$path_install"
-source "$scriptpath/full_install_abba.sh" "$path_install"
+echo ------ QuPath BIOP Full Installer Script -------------
+. "$scriptpath/install_fiji.sh" "$path_install"
+. "$scriptpath/install_fiji_update_sites.sh" "$path_install"
+
+echo ------ QuPath BIOP Full Installer Script -------------
+echo "This batch file downloads and install QuPath + extensions on your computer"
+
+. "$scriptpath/install_qupath.sh" "$path_install"
+. "$scriptpath/install_qupath_extensions.sh" "$path_install"
+
+echo ------ ImageJ/Fiji BIOP abba Full Installer Script -------------
+. "$scriptpath/install_abba.sh" "$path_install"
+. "$scriptpath/install_abba_atlases.sh" "$path_install"

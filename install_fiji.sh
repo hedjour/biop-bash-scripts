@@ -1,10 +1,8 @@
 #!/bin/bash
-if [[ "$OSTYPE" == "linux-gnu"* ]] ||[[ "$OSTYPE" == "msys" ]]|| [[ "$OSTYPE" == "cygwin" ]]; then
-    scriptpath=$(realpath $(dirname $0))
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-    scriptpath=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
-fi
+scriptpath=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+
 source "$scriptpath/global_function.sh"
+source "$scriptpath/version_software_script.sh"
 
 ################################################################################
 # Help                                                                         #
@@ -39,25 +37,40 @@ done
 
 echo ------ ImageJ/Fiji Installer Script -------------
 #  ------- INSTALLATION PATH VALIDATION and Check system if not already done
-if [ $# -eq 0 ] 
-then
-	path_validation
-else 	
-	path_validation $1
+if [ $# -eq 0 ]; then
+    path_validation
+else
+    path_validation "$1"
 fi
 
 # MAKE TEMP FOLDER IN CASE DOWNLOADS ARE NECESSARY
 temp_dl_dir="$path_install/temp_dl"
 mkdir -p "$temp_dl_dir"
 
+# ------ Fiji ------
+# Always using latest — check executable names at https://imagej.net/software/fiji/downloads
+# New jaunch launcher names (Java 21+)
+case "$OSTYPE" in
+   linux-gnu*)
+      fiji_zip_name="fiji-latest-linux64-jdk.zip"
+      fiji_executable_file="fiji-linux-x64"
+      ;;
+   darwin*)
+      fiji_zip_name="fiji-latest-macos64-jdk.zip"
+      fiji_executable_file="Contents/MacOS/fiji-macos"
+      ;;
+   msys|cygwin)
+      fiji_zip_name="fiji-latest-win64-jdk.zip"
+      fiji_executable_file="fiji-windows-x64.exe"
+      ;;
+esac
+fiji_url="https://downloads.imagej.net/fiji/latest/${fiji_zip_name}"
 
 # ------ SETTING UP IMAGEJ/FIJI
 echo ------ Setting up ImageJ/Fiji ------
-
+# if linux we create a desktop entry for Fiji
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 	echo "Linux beta supported - please contribute to this installer to support it!"
-	fiji_executable_file="ImageJ-linux64"
-	fiji_url="https://downloads.imagej.net/fiji/latest/fiji-linux64.zip"
 	echo "[Desktop Entry]
 Type=Application
 Name=Fiji
@@ -67,12 +80,6 @@ Exec="$path_install/Fiji.app/$fiji_executable_file"
 Terminal=false  #ouvrir ou non un terminal lors de l'exécution du programme (false ou true)
 StartupNotify=false  #notification de démarrage ou non (false ou true)
 Categories=Analyse image  #Exemple: Categories=Application;;" > ~/.local/share/applications/Fiji.desktop
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-	fiji_executable_file="Contents/MacOS/ImageJ-macosx"
-	fiji_url="https://downloads.imagej.net/fiji/latest/fiji-macosx.zip"
-elif[[ "$OSTYPE" == "msys" ]]|| [[ "$OSTYPE" == "cygwin" ]]; then
-	fiji_executable_file="ImageJ-win64.exe"
-	fiji_url="https://downloads.imagej.net/fiji/latest/fiji-win64.zip"
 fi
 
 fiji_path="$path_install/Fiji.app/$fiji_executable_file"
@@ -85,13 +92,8 @@ else
 	fiji_zip_path="$temp_dl_dir/fiji.zip"
 	curl "$fiji_url" -# -o "$fiji_zip_path"
 	echo "Unzipping Fiji in $path_install"
-	/usr/bin/unzip "$fiji_zip_path" -d "$path_install/"# TODO bug here on windows.
-	if [[ "$OSTYPE" == "darwin"* ]]; then
-		echo "Your OS: Mac OSX, make the folder not read only"
-		chflags -R nouchg "$path_install/Fiji.app"
-		xattr -rd com.apple.quarantine "$path_install/Fiji.app"
-		chmod -R a+w "$path_install/Fiji.app"
-	fi
+	/usr/bin/unzip "$fiji_zip_path" -d "$path_install/"
+	[[ "$OSTYPE" == "darwin"* ]] && mac_fix_permissions "$path_install/Fiji.app"
 fi
 
 if [[ -f "$fiji_path" ]]; then
@@ -107,23 +109,14 @@ echo "Updating Fiji"
 "$fiji_path" --update update
 echo "Fiji updated"
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
-	echo "Your OS: Mac OSX, make the folder not read only"
-	chflags -R nouchg "$path_install/Fiji.app"
-	xattr -rd com.apple.quarantine "$path_install/Fiji.app"
-	chmod -R a+w "$path_install/Fiji.app"
-fi
+[[ "$OSTYPE" == "darwin"* ]] && mac_fix_permissions "$path_install/Fiji.app"
 
 echo "Updating Fiji one last time" 
 "$fiji_path" --update update
 echo "Fiji should now be up-to-date"
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
-	echo "Your OS: Mac OSX, make the folder not read only"
-	chflags -R nouchg "$path_install/Fiji.app"
-	xattr -rd com.apple.quarantine "$path_install/Fiji.app"
-	chmod -R a+w "$path_install/Fiji.app"
-fi
+[[ "$OSTYPE" == "darwin"* ]] && mac_fix_permissions "$path_install/Fiji.app"
+
 
 echo "Removing temporary download folder $temp_dl_dir"
 rm -r "$temp_dl_dir"

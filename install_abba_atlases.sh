@@ -1,10 +1,9 @@
 #!/bin/bash
-if [[ "$OSTYPE" == "linux-gnu"* ]] ||[[ "$OSTYPE" == "msys" ]]|| [[ "$OSTYPE" == "cygwin" ]]; then
-    scriptpath=$(realpath $(dirname $0))
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-    scriptpath=$(dirname "$(readlink -f "${BASH_SOURCE[0]}")")
-fi
+scriptpath=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+
 source "$scriptpath/global_function.sh"
+source "$scriptpath/version_software_script.sh"
+
 
 ################################################################################
 # Help                                                                         #

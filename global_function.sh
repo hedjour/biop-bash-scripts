@@ -55,3 +55,11 @@ function path_validation(){
 	echo "All components will be installed in:"
 	echo "$path_install"
 }
+
+# Fix of permissions on MacOS
+function mac_fix_permissions() {
+    local target_dir="$1"
+    chflags -R nouchg "$target_dir"
+    xattr -rd com.apple.quarantine "$target_dir"
+    chmod -R a+w "$target_dir"
+}
