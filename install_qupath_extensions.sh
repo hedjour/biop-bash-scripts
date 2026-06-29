@@ -104,7 +104,7 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 elif [[ "$OSTYPE" == "darwin"* ]]; then
 	qupath_executable_file="Contents/MacOS/QuPath"
 	qupath_path="/Applications/QuPath.app/$qupath_executable_file"
-elif[[ "$OSTYPE" == "msys" ]]|| [[ "$OSTYPE" == "cygwin" ]]; then
+elif [[ "$OSTYPE" == "msys" ]]|| [[ "$OSTYPE" == "cygwin" ]]; then
 	qupath_executable_file="QuPath-$qupath_version.exe"
 	qupath_path="$path_install/QuPath-$qupath_version/$qupath_executable_file"
 fi
