@@ -117,6 +117,17 @@ echo "Fiji should now be up-to-date"
 
 [[ "$OSTYPE" == "darwin"* ]] && mac_fix_permissions "$path_install/Fiji"
 
+echo "Enabling update sites"
+"$fiji_path" --update add-update-sites \
+    "PTBIOP"        "https://biop.epfl.ch/Fiji-Update" \
+    "OMERO 5.5-5.6" "https://sites.imagej.net/OMERO-5.5-5.6/" \
+    "IBMP-CNRS"     "https://sites.imagej.net/Mutterer/" \
+    "IJPB-plugins"  "https://sites.imagej.net/IJPB-plugins/" \
+    "ImageScience"  "https://sites.imagej.net/ImageScience/"
+
+echo "Installing update sites"
+"$fiji_path" --update update
+[[ "$OSTYPE" == "darwin"* ]] && mac_fix_permissions "$path_install/Fiji.app"
 
 echo "Removing temporary download folder $temp_dl_dir"
 rm -r "$temp_dl_dir"
