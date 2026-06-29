@@ -49,6 +49,8 @@ fi
 echo ------ QuPath BIOP Full Installer Script -------------
 . "$scriptpath/install_fiji.sh" "$path_install"
 . "$scriptpath/install_fiji_update_sites.sh" "$path_install"
+. "$scriptpath/install_qupath.sh" "$path_install"
+. "$scriptpath/install_qupath_extensions.sh" "$path_install"
 
 echo ------ QuPath BIOP Full Installer Script -------------
 echo "This batch file downloads and install QuPath + extensions on your computer"
@@ -59,3 +61,5 @@ echo "This batch file downloads and install QuPath + extensions on your computer
 echo ------ ImageJ/Fiji BIOP abba Full Installer Script -------------
 . "$scriptpath/install_abba.sh" "$path_install"
 . "$scriptpath/install_abba_atlases.sh" "$path_install"
+
+rm -rf "$temp_dl_dir"
