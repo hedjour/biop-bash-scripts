@@ -88,7 +88,7 @@ echo "Looking for Fiji executable: $fiji_path"
 if [[ -f "$fiji_path" ]]; then
     echo "Fiji detected, bypassing installation"
 else
-	echo "Fiji not present, downloading it"
+	echo "Fiji not present, downloading it at $fiji_url"
 	fiji_zip_path="$temp_dl_dir/fiji.zip"
 	curl "$fiji_url" -# -o "$fiji_zip_path"
 	echo "Unzipping Fiji in $path_install"

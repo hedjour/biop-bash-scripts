@@ -1,7 +1,6 @@
 #!/bin/bash
 scriptpath=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 
-fi	
 source "$scriptpath/global_function.sh"
 source "$scriptpath/version_software_script.sh"
 
