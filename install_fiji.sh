@@ -57,7 +57,7 @@ echo ------ Setting up ImageJ/Fiji ------
 if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 	echo "Linux beta supported - please contribute to this installer to support it!"
 	fiji_executable_file="ImageJ-linux64"
-	fiji_url="https://downloads.imagej.net/fiji/latest/fiji-linux64.zip"
+	fiji_url="https://downloads.imagej.net/fiji/latest/fiji-latest-linux64-jdk.zip"
 	echo "[Desktop Entry]
 Type=Application
 Name=Fiji
@@ -69,10 +69,10 @@ StartupNotify=false  #notification de démarrage ou non (false ou true)
 Categories=Analyse image  #Exemple: Categories=Application;;" > ~/.local/share/applications/Fiji.desktop
 elif [[ "$OSTYPE" == "darwin"* ]]; then
 	fiji_executable_file="Contents/MacOS/ImageJ-macosx"
-	fiji_url="https://downloads.imagej.net/fiji/latest/fiji-macosx.zip"
-elif[[ "$OSTYPE" == "msys" ]]|| [[ "$OSTYPE" == "cygwin" ]]; then
+	fiji_url="https://downloads.imagej.net/fiji/latest/fiji-latest-macos64-jdk.zip"
+elif [[ "$OSTYPE" == "msys" ]]|| [[ "$OSTYPE" == "cygwin" ]]; then
 	fiji_executable_file="ImageJ-win64.exe"
-	fiji_url="https://downloads.imagej.net/fiji/latest/fiji-win64.zip"
+	fiji_url="https://downloads.imagej.net/fiji/latest/fiji-latest-win64-jdk.zip"
 fi
 
 fiji_path="$path_install/Fiji.app/$fiji_executable_file"
@@ -85,7 +85,7 @@ else
 	fiji_zip_path="$temp_dl_dir/fiji.zip"
 	curl "$fiji_url" -# -o "$fiji_zip_path"
 	echo "Unzipping Fiji in $path_install"
-	/usr/bin/unzip "$fiji_zip_path" -d "$path_install/"# TODO bug here on windows.
+	/usr/bin/unzip "$fiji_zip_path" -d "$path_install/"
 	if [[ "$OSTYPE" == "darwin"* ]]; then
 		echo "Your OS: Mac OSX, make the folder not read only"
 		chflags -R nouchg "$path_install/Fiji.app"

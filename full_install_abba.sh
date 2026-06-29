@@ -21,7 +21,7 @@ function Help()
    echo "argument of this script. For instance: "
    echo ""
    echo "Windows:"
-   echo "./full_install_abba.sh \"C:/\""
+   echo "./full_install_abba.sh \"C:/Users/[USERTOADAPT]/Documents/DEV/abba\""
    echo 
    echo "Mac:"
    echo "./full_install_abba.sh /Applications/"

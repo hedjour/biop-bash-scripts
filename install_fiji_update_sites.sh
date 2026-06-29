@@ -65,7 +65,7 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 elif [[ "$OSTYPE" == "darwin"* ]]; then
 	fiji_executable_file="Contents/MacOS/ImageJ-macosx"
 	fiji_url="https://downloads.imagej.net/fiji/latest/fiji-macosx.zip"
-elif[[ "$OSTYPE" == "msys" ]]|| [[ "$OSTYPE" == "cygwin" ]]; then
+elif [[ "$OSTYPE" == "msys" ]]|| [[ "$OSTYPE" == "cygwin" ]]; then
 	fiji_executable_file="ImageJ-win64.exe"
 	fiji_url="https://downloads.imagej.net/fiji/latest/fiji-win64.zip"
 fi
