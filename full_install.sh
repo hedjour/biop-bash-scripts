@@ -48,7 +48,6 @@ fi
 
 echo ------ QuPath BIOP Full Installer Script -------------
 . "$scriptpath/install_fiji.sh" "$path_install"
-. "$scriptpath/install_fiji_update_sites.sh" "$path_install"
 . "$scriptpath/install_qupath.sh" "$path_install"
 . "$scriptpath/install_qupath_extensions.sh" "$path_install"
 
