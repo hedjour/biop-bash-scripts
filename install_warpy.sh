@@ -92,7 +92,7 @@ else
 	fiji_zip_path="$temp_dl_dir/fiji.zip"
 	curl "$fiji_url" -# -o "$fiji_zip_path"
 	echo "Unzipping Fiji in $path_install"
-	unzip "$fiji_zip_path" -d "$path_install/"
+	/usr/bin/unzip "$fiji_zip_path" -d "$path_install/"
 fi
 
 if [[ -f "$fiji_path" ]]; then
@@ -181,7 +181,7 @@ else
 	curl "$elastix_url" -L -# -o "$elastix_zip_path"
 	echo "Unzipping Elastix in $path_install" #Any archive of Elastix are not in one directory
 	mkdir -p "$path_install/$elastix_os_subpath/"
-	unzip "$elastix_zip_path" -d "$path_install/$elastix_os_subpath/"
+	/usr/bin/unzip "$elastix_zip_path" -d "$path_install/$elastix_os_subpath/"
 fi
 
 if [[ -f "$elastix_path" ]]; then
@@ -265,7 +265,7 @@ elif[[ "$OSTYPE" == "msys" ]]|| [[ "$OSTYPE" == "cygwin" ]]; then
 		qupath_zip_path="$temp_dl_dir/qupath.zip"
 		curl "$qupath_url" -L -# -o "$qupath_zip_path"
 		echo "Unzipping QuPath"
-		unzip "$qupath_zip_path" -d "$path_install/QuPath-${qupath_version}"
+		/usr/bin/unzip "$qupath_zip_path" -d "$path_install/QuPath-${qupath_version}"
 		if [[ -f "$qupath_path" ]]; then
 			echo "QuPath successfully installed"
 		else
