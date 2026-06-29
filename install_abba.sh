@@ -94,52 +94,57 @@ fi
 
 # ------ SETTING UP ELASTIX ------
 echo ------ Setting up Elastix ------
-
-if [[ "$OSTYPE" == "linux-gnu"* ]]; then
-	elastix_os_subpath="elastix-$elastix_version-linux"
-	elastix_executable_file="bin/elastix"
-	transformix_executable_file="bin/transformix"
-	elastix_url="https://github.com/SuperElastix/elastix/releases/download/${elastix_version}/elastix-${elastix_version}-linux.zip"
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-	elastix_os_subpath="elastix-$elastix_version-mac"
-	elastix_executable_file="bin/elastix"
-	transformix_executable_file="bin/transformix"
-	elastix_url="https://github.com/SuperElastix/elastix/releases/download/${elastix_version}/elastix-${elastix_version}-mac.zip"
-elif [[ "$OSTYPE" == "msys" ]]|| [[ "$OSTYPE" == "cygwin" ]]; then
-	elastix_os_subpath="elastix-$elastix_version-win64"
-	elastix_executable_file="elastix.exe"
-	transformix_executable_file="transformix.exe"
-	elastix_url="https://github.com/SuperElastix/elastix/releases/download/${elastix_version}/elastix-${elastix_version}-win64.zip"
+case "$OSTYPE" in
+    linux-gnu*)
+        elastix_zip_name="elastix-${elastix_version}-linux.zip"
+        elastix_executable_file="bin/elastix"
+        transformix_executable_file="bin/transformix"
+        ;;
+    darwin*)
+        elastix_zip_name="elastix-${elastix_version}-mac.zip"
+        elastix_executable_file="bin/elastix"
+        transformix_executable_file="bin/transformix"
+        ;;
+    msys|cygwin)
+        elastix_zip_name="elastix-${elastix_version}-win64.zip"
+        elastix_executable_file="elastix.exe"
+        transformix_executable_file="transformix.exe"
+			echo "-- Windows specific: checking whether Visual Studio redistributable is installed"
 	
-	echo "-- Windows specific: checking whether Visual Studio redistributable is installed"
-	
-	# Does the registry key exist?
-	MSYS_NO_PATHCONV=1 reg query "HKLM\\SOFTWARE\\Microsoft\\VisualStudio\\14.0\\VC\\Runtimes\\x64" /v Major >dummy
-	errorlevel=$?
-
-	if [[ "$errorlevel" == "0" ]]; then
-		echo "VS Redistributable is installed."
-	else 
-		echo "VS Redistributable is not installed - downloading it"
-		echo "test"
-		ls "$temp_dl_dir"
-		vc_redist_url="https://aka.ms/vs/16/release/vc_redist.x64.exe"
-		vc_redist_path="$temp_dl_dir/vc_redist_install.exe"
-		curl "$vc_redist_url" -L -# -o "$vc_redist_path"
-		echo "Launching VC redist install - Do not restart your computer at the end of the install"
-		"$vc_redist_path"
-		# Does the registry key exist NOW ?
+		# Does the registry key exist?
 		MSYS_NO_PATHCONV=1 reg query "HKLM\\SOFTWARE\\Microsoft\\VisualStudio\\14.0\\VC\\Runtimes\\x64" /v Major >dummy
 		errorlevel=$?
+
 		if [[ "$errorlevel" == "0" ]]; then
-			echo "VS Redistributable is now installed."
+			echo "VS Redistributable is installed."
 		else 
-			echo "Something went wrong during VS redistributable installation!"
-			pause "Press [Enter] to end the script"
-			exit 1 # We cannot proceed	  
+			echo "VS Redistributable is not installed - downloading it"
+			echo "test"
+			ls "$temp_dl_dir"
+			vc_redist_url="https://aka.ms/vs/16/release/vc_redist.x64.exe"
+			vc_redist_path="$temp_dl_dir/vc_redist_install.exe"
+			curl "$vc_redist_url" -L -# -o "$vc_redist_path"
+			echo "Launching VC redist install - Do not restart your computer at the end of the install"
+			"$vc_redist_path"
+			# Does the registry key exist NOW ?
+			MSYS_NO_PATHCONV=1 reg query "HKLM\\SOFTWARE\\Microsoft\\VisualStudio\\14.0\\VC\\Runtimes\\x64" /v Major >dummy
+			errorlevel=$?
+			if [[ "$errorlevel" == "0" ]]; then
+				echo "VS Redistributable is now installed."
+			else 
+				echo "Something went wrong during VS redistributable installation!"
+				pause "Press [Enter] to end the script"
+				exit 1 # We cannot proceed	  
+			fi
 		fi
-	fi
-fi
+        ;;
+esac
+
+elastix_url="https://github.com/SuperElastix/elastix/releases/download/${elastix_version}/${elastix_zip_name}"
+# Install dir: elastix extrait sans sous-dossier, on crée nous-mêmes le dossier cible
+elastix_install_dir="elastix-${elastix_version}"
+elastix_path="$path_install/$elastix_install_dir/$elastix_executable_file"
+transformix_path="$path_install/$elastix_install_dir/$transformix_executable_file"
 
 elastix_path="$path_install/$elastix_os_subpath/$elastix_executable_file"
 transformix_path="$path_install/$elastix_os_subpath/$transformix_executable_file"
