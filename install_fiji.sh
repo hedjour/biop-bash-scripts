@@ -75,14 +75,14 @@ if [[ "$OSTYPE" == "linux-gnu"* ]]; then
 Type=Application
 Name=Fiji
 Comment=QuPath
-Icon=$path_install/Fiji.app/images/icon-flat.png
-Exec="$path_install/Fiji.app/$fiji_executable_file"
+Icon=$path_install/Fiji/images/icon-flat.png
+Exec="$path_install/Fiji/$fiji_executable_file"
 Terminal=false  #ouvrir ou non un terminal lors de l'exécution du programme (false ou true)
 StartupNotify=false  #notification de démarrage ou non (false ou true)
 Categories=Analyse image  #Exemple: Categories=Application;;" > ~/.local/share/applications/Fiji.desktop
 fi
 
-fiji_path="$path_install/Fiji.app/$fiji_executable_file"
+fiji_path="$path_install/Fiji/$fiji_executable_file"
 
 echo "Looking for Fiji executable: $fiji_path"
 if [[ -f "$fiji_path" ]]; then
@@ -93,7 +93,7 @@ else
 	curl "$fiji_url" -# -o "$fiji_zip_path"
 	echo "Unzipping Fiji in $path_install"
 	/usr/bin/unzip "$fiji_zip_path" -d "$path_install/"
-	[[ "$OSTYPE" == "darwin"* ]] && mac_fix_permissions "$path_install/Fiji.app"
+	[[ "$OSTYPE" == "darwin"* ]] && mac_fix_permissions "$path_install/Fiji"
 fi
 
 if [[ -f "$fiji_path" ]]; then
@@ -109,13 +109,13 @@ echo "Updating Fiji"
 "$fiji_path" --update update
 echo "Fiji updated"
 
-[[ "$OSTYPE" == "darwin"* ]] && mac_fix_permissions "$path_install/Fiji.app"
+[[ "$OSTYPE" == "darwin"* ]] && mac_fix_permissions "$path_install/Fiji"
 
 echo "Updating Fiji one last time" 
 "$fiji_path" --update update
 echo "Fiji should now be up-to-date"
 
-[[ "$OSTYPE" == "darwin"* ]] && mac_fix_permissions "$path_install/Fiji.app"
+[[ "$OSTYPE" == "darwin"* ]] && mac_fix_permissions "$path_install/Fiji"
 
 
 echo "Removing temporary download folder $temp_dl_dir"
