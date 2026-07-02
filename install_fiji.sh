@@ -55,9 +55,17 @@ case "$OSTYPE" in
       fiji_zip_name="fiji-latest-linux64-jdk.zip"
       fiji_executable_file="fiji-linux-x64"
       ;;
-   darwin*)
-      fiji_zip_name="fiji-latest-macos64-jdk.zip"
-      fiji_executable_file="Contents/MacOS/fiji-macos"
+   darwin*)      
+      ARCH=$(uname -m)
+      if [ "$ARCH" = "arm64" ]; then
+         echo "Puce Apple Silicon détectée (ARM64)"
+         fiji_zip_name="fiji-latest-macos-arm64-jdk.zip"
+      else
+         echo "Puce Intel détectée (x86_64)"
+         fiji_zip_name="fiji-latest-macos64-jdk.zip"
+
+      fiji_executable_file="Fiji.app/Contents/MacOS/fiji-macos"
+      fi
       ;;
    msys|cygwin)
       fiji_zip_name="fiji-latest-win64-jdk.zip"

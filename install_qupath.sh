@@ -90,7 +90,15 @@ elif [[ "$OSTYPE" == "darwin"* ]]; then
 	if [[ -f "$qupath_path" ]]; then
 		echo "QuPath detected, bypassing installation"
 	else
-		qupath_url="https://github.com/qupath/qupath/releases/download/v${qupath_version}/QuPath-v${qupath_version}-Mac-x64.pkg"
+		ARCH=$(uname -m)
+		if [ "$ARCH" = "arm64" ]; then
+			echo "Puce Apple Silicon détectée (ARM64)"
+			mac_proc ="arm64"	
+		else
+			echo "Puce Intel détectée (x86_64)"
+			mac_proc ="x64"
+		fi
+		qupath_url="https://github.com/qupath/qupath/releases/download/v${qupath_version}/QuPath-v${qupath_version}-Mac-${mac_proc}.pkg"
 		echo "QuPath not present, downloading it from $qupath_url"
 		qupath_zip_path="$temp_dl_dir/qupath.pkg"
 		curl "$qupath_url" -L -# -o "$qupath_zip_path"
